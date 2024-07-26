@@ -16,8 +16,7 @@ jobs:
 
       - name: Install Swift
         run: |
-          sudo apt-get update
-          sudo apt-get install -y swiftlang
+          brew install swift
 
       - name: Update Swift packages
         run: swift package update
