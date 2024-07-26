@@ -14,10 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Swift
-        uses: actions/setup-swift@v1
-        with:
-          swift-version: '5.9.2'  # 사용할 Swift 버전
+      - name: Install Swift
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y swiftlang
 
       - name: Update Swift packages
         run: swift package update
