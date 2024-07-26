@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*'  # 모든 태그에 대해 트리거됩니다.
+  workflow_dispatch:  # 수동으로 워크플로우를 트리거할 수 있는 옵션
 
 jobs:
   update-packages:
