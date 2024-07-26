@@ -100,6 +100,7 @@ class ViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
 // test
+        // test2
         radiusButton.snp.makeConstraints { make in
             make.top.equalTo(self.imageAndText.snp.bottom).offset(20)
 //            make.horizontalEdges.equalToSuperview().inset(10)
