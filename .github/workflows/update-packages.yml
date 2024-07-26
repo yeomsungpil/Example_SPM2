@@ -1,0 +1,37 @@
+name: Update Swift Packages
+
+on:
+  push:
+    tags:
+      - '*'  # 모든 태그 푸시 시 트리거
+  workflow_dispatch:  # 수동으로 워크플로우를 트리거할 수 있는 옵션
+
+jobs:
+  update-packages:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Swift
+        run: |
+          brew install swift
+
+      - name: Resolve Swift Package dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies -project Example_SPM2/Example_SPM2.xcodeproj
+
+      - name: Build and test with Xcode
+        run: |
+          xcodebuild clean test -project Example_SPM2/Example_SPM2.xcodeproj -scheme Example_SPM2 -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.4'
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add .
+          git commit -m "Update Swift packages"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
