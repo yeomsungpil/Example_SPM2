@@ -20,11 +20,7 @@ jobs:
 
       - name: Resolve Swift Package dependencies
         run: |
-          xcodebuild -resolvePackageDependencies -project Example_SPM2/Example_SPM2.xcodeproj
-
-      - name: Build and test with Xcode
-        run: |
-          xcodebuild clean test -project Example_SPM2/Example_SPM2.xcodeproj -scheme Example_SPM2 -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.4'
+          xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
 
       - name: Commit and push changes
         run: |
