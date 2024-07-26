@@ -1,0 +1,32 @@
+name: Update Swift Packages
+
+on:
+  push:
+    tags:
+      - '*'  # 모든 태그에 대해 트리거됩니다.
+
+jobs:
+  update-packages:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Swift
+        uses: actions/setup-swift@v1
+        with:
+          swift-version: '5.9.2'  # 사용할 Swift 버전
+
+      - name: Update Swift packages
+        run: swift package update
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add .
+          git commit -m "Update Swift packages"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
