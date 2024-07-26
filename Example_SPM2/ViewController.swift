@@ -68,7 +68,9 @@ class ViewController: UIViewController {
        let textView = BaseTextView(inset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
                                    fontSize: 20,
                                    fontWeight: .medium,
-                                   textColor: .lightGray)
+                                   textColor: .lightGray,
+                                   maxHeight: 200,
+                                   minHeight: 100)
         textView.placeHolder = "텍스트 뷰 플레이스 홀더 입니다."
         textView.setRadidusAndBorder(radius: 10, borderColor: .blue, borderWidth: 2)
         return textView
@@ -119,7 +121,7 @@ class ViewController: UIViewController {
         testTextView.snp.makeConstraints { make in
             make.top.equalTo(self.textField1.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(100)
+            make.height.equalTo(testTextView.minHeight!)
             make.width.equalTo(300)
         }
         
