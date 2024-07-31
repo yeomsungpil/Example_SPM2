@@ -14,27 +14,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup GitHub Authentication
-      run: |
-        echo "machine github.com" >> ~/.netrc
-        echo "login ${{ secrets.WEBHOOK_SECRET }}" >> ~/.netrc
-        echo "password x-oauth-basic" >> ~/.netrc
-        chmod 600 ~/.netrc  # Ensure the correct permissions
-
-    - name: Checkout main branch
-      run: git checkout main
-
-    - name: Resolve Dependencies
-      run: |
-        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
-
-    - name: Commit and Push Changes
-      run: |
-        if ! git diff --exit-code; then
-          git add .
-          git commit -m "Update CustomSPM to latest version"
-          git push origin main
-        fi
+    - name: Checkout Code
+      run:  git checkout main 
