@@ -26,11 +26,12 @@ jobs:
     - name: Remove Package.resolved
       run: |
         rm -rf Example_SPM2.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+        rm -rf ~/Library/Caches/org.swift.swiftpm
+        cd Example_SPM2
 
     - name: Resolve Dependencies
-      run: |
-        cd Example_SPM2
-        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj -disablePackageRepositoryCache
+      run: |        
+        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
 
     - name: Commit and Push Changes
       run: |
