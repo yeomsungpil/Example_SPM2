@@ -26,9 +26,10 @@ jobs:
     - name: Checkout main branch
       run: git checkout main
 
-    - name: Resolve Dependencies
+    - name: Update Dependencies
       run: |
-        xcodebuild -updatePackageDependencies -project Example_SPM2/Example_SPM2.xcodeproj
+        cd Example_SPM2
+        swift package update
 
     - name: Commit and Push Changes
       run: |
