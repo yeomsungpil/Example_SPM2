@@ -26,13 +26,9 @@ jobs:
     - name: Checkout main branch
       run: git checkout main
 
-    - name: Setup GitHub Authentication
-      run: |
-        git config --global url."https://${{ secrets.WEBHOOK_SCRERT }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-
     - name: Resolve Dependencies
       run: |
-        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
+        xcodebuild -updatePackageDependencies -project Example_SPM2/Example_SPM2.xcodeproj
 
     - name: Commit and Push Changes
       run: |
