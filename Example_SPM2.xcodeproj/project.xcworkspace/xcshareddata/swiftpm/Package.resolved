@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/LimeDevelopers/LimeFriendsKit_SPM.git",
       "state" : {
-        "revision" : "b2f745dfdf97b477044c0128232536e1c424a357",
-        "version" : "1.7.2"
+        "revision" : "2f2b626eed2f4cb7b08e138395ee8dd1e6efa769",
+        "version" : "1.7.4"
       }
     },
     {
