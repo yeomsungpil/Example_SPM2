@@ -25,14 +25,14 @@ jobs:
     - name: Checkout main branch
       run: git checkout main
 
-    - name: Update LimeFriendsKit_SPM
+    - name: Resolve Dependencies
       run: |
-        swift package update LimeFriendsKit_SPM
+        xcodebuild -resolvePackageDependencies -project Example_SPM2/Example_SPM2.xcodeproj
 
     - name: Commit and Push Changes
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
-        git add .
-        git commit -m "Update CustomSPM to latest version"
+        git add Example_SPM2/Package.resolved
+        git commit -m "Update LimeFriendsKit_SPM to latest version"
         git push origin main
