@@ -1,42 +1,35 @@
-name: Update CustomSPM - test
+name: Update CustomSPM
 
 on:
   repository_dispatch:
     types: [update_custom_spm]
+    
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   update:
     runs-on: macos-latest
 
-    env:
-      ACTIONS_RUNNER_DEBUG: "true"
-
     steps:
     - uses: actions/checkout@v4
+    - name: Checkout Code
+      id: resolution
+      uses: yeomsungpil/action-xcodeproj-spm-update@main
       with:
-        fetch-depth: 0
+          forceResolution: true
+          failWhenOutdated: false
 
-    - name: Setup GitHub Authentication
-      run: |
-        echo "machine github.com" >> ~/.netrc
-        echo "login ${{ secrets.GH_TOKEN }}" >> ~/.netrc
-        echo "password x-oauth-basic" >> ~/.netrc
-        chmod 600 ~/.netrc  # Ensure the correct permissions
+    - name: Create Pull Request
+      if: steps.resolution.outputs.dependenciesChanged == 'true'
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: 'dependencies/ios'
+        delete-branch: true
+        commit-message: 'Update Xcode Dependencies'
+        title: 'Updated Xcode Dependencies'
 
-    - name: Clear DerivedData and Cache
-      run: |
-        rm -rf ~/Library/Developer/Xcode/DerivedData/*
-        rm -rf ~/Library/Caches/org.swift.swiftpm/repositories/*
 
-    - name: Checkout main branch
-      run: git checkout main
 
-    - name: Update CustomSPM
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: |
-        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj -verbose
-        git add .
-        git commit -m "Update CustomSPM to latest version"
-        git push origin main
+
