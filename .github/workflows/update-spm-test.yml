@@ -3,7 +3,7 @@ name: Update CustomSPM
 on:
   repository_dispatch:
     types: [update_custom_spm]
-    
+
 permissions:
   contents: write
   pull-requests: write
@@ -14,18 +14,27 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Checkout Code
+      with:
+        fetch-depth: 0
+
+    - name: Setup GitHub Authentication
+      run: |
+        echo "machine github.com" >> ~/.netrc
+        echo "login ${{ secrets.WEB_HOOK }}" >> ~/.netrc
+        echo "password x-oauth-basic" >> ~/.netrc
+        chmod 600 ~/.netrc  # Ensure the correct permissions
+
+    - name: Checkout main branch
       run: git checkout main
 
-    - name: Create Pull Request
-      if: steps.resolution.outputs.dependenciesChanged == 'true'
-      uses: peter-evans/create-pull-request@v3
-      with:
-        branch: 'dependencies/ios'
-        delete-branch: true
-        commit-message: 'Update Xcode Dependencies'
-        title: 'Updated Xcode Dependencies'
+    - name: Resolve Dependencies
+      run: |
+        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
 
-
-
-
+    - name: Commit and Push Changes
+      run: |
+        if ! git diff --exit-code; then
+          git add .
+          git commit -m "Update CustomSPM to latest version"
+          git push origin main
+        fi
