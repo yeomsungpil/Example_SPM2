@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Checkout Code
       id: resolution
-      uses: yeomsungpil/action-xcodeproj-spm-update@main
+      uses: Yeomsungpil/Example_SPM2@main
       with:
           forceResolution: true
           failWhenOutdated: false
