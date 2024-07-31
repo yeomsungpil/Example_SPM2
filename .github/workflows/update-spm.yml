@@ -11,6 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Checout Code
+      run: git checkout main
 
     - name: Update CustomSPM
       run: |
