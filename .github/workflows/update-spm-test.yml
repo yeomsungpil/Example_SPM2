@@ -30,9 +30,6 @@ jobs:
       run: |
         git config --global url."https://${{ secrets.WEBHOOK_SCRERT }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
-    - name: Select Xcode Version
-      run: sudo xcode-select -switch /Applications/Xcode.app
-
     - name: Resolve Dependencies
       run: |
         xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
