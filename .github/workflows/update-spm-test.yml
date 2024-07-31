@@ -15,10 +15,33 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup GitHub Authentication
+      run: |
+        git config --global url."https://${{ secrets.WEBHOOK_SECRET }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
     - name: Resolve Dependencies
       run: |
         xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
+
+    - name: Check for Dependency Changes
+      id: check_changes
+      run: |
+        git status
+        git diff --exit-code > changes.diff
+        if [ -s changes.diff ]; then
+          echo "dependenciesChanged=true" >> $GITHUB_ENV
+        else
+          echo "dependenciesChanged=false" >> $GITHUB_ENV
+        fi
+      shell: bash
+
+    - name: Read Dependency Changes
+      id: read_changes
+      run: echo "::set-output name=has_changes::$(cat has_changes.txt)"
+      shell: bash
 
     - name: Commit and Push Changes
       if: env.dependenciesChanged == 'true'
