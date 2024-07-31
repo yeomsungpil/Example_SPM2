@@ -28,7 +28,7 @@ jobs:
 
     - name: Update Dependencies
       run: |
-        cd Example_SPM2
+        cd Example/Example_SPM/Example_SPM2/Example_SPM2.xcodeproj
         swift package update
 
     - name: Commit and Push Changes
