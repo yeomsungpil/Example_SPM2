@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   update:
-    runs-on: macos-14
+    runs-on: macos-latest
 
     steps:
     - name: Checkout Code
@@ -27,7 +27,7 @@ jobs:
 
     - name: Resolve Dependencies
       run: |
-        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
+        xcodebuild -resolvePackageDependencies -project Example_SPM2/Example_SPM2.xcodeproj
 
     - name: Commit and Push Changes
       run: |
