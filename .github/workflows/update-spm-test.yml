@@ -18,10 +18,14 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Setup GitHub Authentication
+      run: |
+        git config --global url."https://${{ secrets.WEBHOOK_SECRET }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+        git config --global url."https://${{ secrets.WEBHOOK_SECRET }}@github.com/".insteadOf "git@github.com:"
+
     - name: Remove Package.resolved
       run: |
         rm -rf Example_SPM2.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
-        cd Example_SPM2
 
     - name: Resolve Dependencies
       run: |
