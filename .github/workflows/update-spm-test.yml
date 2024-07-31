@@ -26,6 +26,7 @@ jobs:
     - name: Remove Package.resolved
       run: |
         rm -rf Example_SPM2.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+        cd Example_SPM2
 
     - name: Resolve Dependencies
       run: |
