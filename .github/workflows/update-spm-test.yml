@@ -15,7 +15,7 @@ jobs:
 
     - name: Update CustomSPM
       run: |
-        swift package update CustomSPM
-        git add Package.resolved
+        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
+        git add .
         git commit -m "Update CustomSPM to latest version"
         git push origin main
