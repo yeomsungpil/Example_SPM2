@@ -15,11 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Checkout Code
-      id: resolution
-      uses: Yeomsungpil/Example_SPM2@main
-      with:
-          forceResolution: true
-          failWhenOutdated: false
+      run: git checkout main
 
     - name: Create Pull Request
       if: steps.resolution.outputs.dependenciesChanged == 'true'
