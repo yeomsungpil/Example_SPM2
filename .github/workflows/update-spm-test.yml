@@ -27,7 +27,7 @@ jobs:
 
     - name: Resolve Dependencies
       run: |
-        xcodebuild -resolvePackageDependencies -project Example_SPM2/Example_SPM2.xcodeproj
+        xcodebuild -resolvePackageDependencies Example_SPM2/Example_SPM2.xcodeproj
 
     - name: Commit and Push Changes
       run: |
