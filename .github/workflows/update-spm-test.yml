@@ -17,13 +17,18 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        
+    - name: Setup GitHub Authentication
+      run: |
+        git config --global url."https://${{ secrets.WEBHOOK_SCRERT }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+        git config --global url."https://${{ secrets.WEBHOOK_SCRERT }}@github.com/".insteadOf "git@github.com:"
+
+    - name: Checkout main branch
+      run: git checkout main
 
     - name: Setup GitHub Authentication
       run: |
         git config --global url."https://${{ secrets.WEBHOOK_SCRERT }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-
-    - name: Checkout main branch
-      run: git checkout main
 
     - name: Resolve Dependencies
       run: |
