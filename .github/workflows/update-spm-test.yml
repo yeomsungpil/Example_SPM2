@@ -13,6 +13,18 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v4
     - name: Checkout Code
-      run:  git checkout main 
+      uses: actions/checkout@v4
+
+    - name: Resolve Dependencies
+      run: |
+        xcodebuild -resolvePackageDependencies -project Example_SPM2.xcodeproj
+
+    - name: Commit and Push Changes
+      if: env.dependenciesChanged == 'true'
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add .
+        git commit -m "Update CustomSPM to latest version"
+        git push origin main
