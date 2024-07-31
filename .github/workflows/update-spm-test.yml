@@ -1,0 +1,21 @@
+name: Update CustomSPM - test
+
+on:
+  repository_dispatch:
+    types: [update_custom_spm]
+
+jobs:
+  update:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Checout Code
+      run: git checkout main
+
+    - name: Update CustomSPM
+      run: |
+        swift package update CustomSPM
+        git add Package.resolved
+        git commit -m "Update CustomSPM to latest version"
+        git push origin main
