@@ -10,7 +10,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Checout Code
+      with:
+        fetch-depth: 0
+
+    - name: Setup GitHub Authentication
+      run: |
+        echo "machine github.com" >> ~/.netrc
+        echo "login ${{ secrets.GH_TOKEN }}" >> ~/.netrc
+        echo "password x-oauth-basic" >> ~/.netrc
+
+    - name: Checkout main branch
       run: git checkout main
 
     - name: Update CustomSPM
