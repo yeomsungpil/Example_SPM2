@@ -20,7 +20,7 @@ jobs:
     - name: Setup GitHub Authentication
       run: |
         echo "machine github.com" >> ~/.netrc
-        echo "login ${{ secrets.WEB_HOOK }}" >> ~/.netrc
+        echo "login ${{ secrets.WEBHOOK_SECRET }}" >> ~/.netrc
         echo "password x-oauth-basic" >> ~/.netrc
         chmod 600 ~/.netrc  # Ensure the correct permissions
 
