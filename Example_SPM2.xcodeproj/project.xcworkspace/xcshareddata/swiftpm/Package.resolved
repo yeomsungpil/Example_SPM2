@@ -1,0 +1,24 @@
+{
+  "originHash" : "121b79b293bbcdaf9f7a608f73f976e706109ee6966ed7c25353c69870393958",
+  "pins" : [
+    {
+      "identity" : "limefriendskit_spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/LimeDevelopers/LimeFriendsKit_SPM.git",
+      "state" : {
+        "revision" : "0c3e8726fe29860d8f6be7f60964be804f0995b8",
+        "version" : "1.7.1"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+        "version" : "5.7.1"
+      }
+    }
+  ],
+  "version" : 3
+}
